@@ -1,0 +1,217 @@
+% Dissertation template and document class for University of Kaiserslautern, Institute for ...
+% ******************************************************************************************
+% Author  : Abdullah Karatas <karatas@mv.uni-kl.de>
+% Author  : Tycho Groche     <groche@mv.uni-kl.de>
+% ****************************************************************************************** %
+%% Note:
+%% Define "\printmode" to remove all hyperlinks for printed copies of the thesis. Delete all output files before changing this mode -- it will turn hyperref package on and off
+%% For the electronic copy, use doublespacing, define "\proquestmode" to use outlined links, instead of colored links. (Default)
+%% The basic structure was adopted by the Prinston University (see: ...)
+
+%\documentclass[12pt,lot, lof, singlespace]{puthesis}
+%\newcommand{\printmode}{}
+\documentclass[11pt,lot, lof]{puthesis}
+\newcommand{\proquestmode}{}
+
+% ****************************************************************************************** %
+%% Author & title page info
+\title{An Abstract for Roughness Parameters using X-ray microtomography (Micro-CT)}
+
+\submitted{\today}  % degree conferral date
+\copyrightyear{2018}  % year in which the copyright is secured by publication of the dissertation.
+\author{Dorothea Köhne and Abdullah Karatas}
+\adviser{Prof. Dr.-Ing. J\"org Seewig}  %add more if necessary
+\department{Mechanical and Process Engineering}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\renewcommand{\topfraction}{0.85}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.6}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}     % 2 may work better
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.66}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.15}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.66}	% require fuller float pages
+	% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.66}	% require fuller float pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+%% Use packages
+
+%% For Zeilenabstand Change if necessary
+% \usepackage[singlespacing]{setspace}
+% \usepackage[onehalfspacing]{setspace}
+% \usepackage[doublespacing]{setspace}
+% \usepackage{setspace}
+% \usepackage{amsfonts}
+
+%% For figures
+\usepackage{graphicx}
+%\usepackage{subfig,rotate}
+
+%% for comments
+\usepackage{verbatim}
+
+%% For tables
+\usepackage{multirow}
+% Longtable lets you have tables that span multiple pages.
+\usepackage{longtable}
+% Booktabs produces far nicer tables than the standard LaTeX tables.
+%   see: http://en.wikibooks.org/wiki/LaTeX/Tables
+\usepackage{booktabs}
+%set parameters for longtable:
+% default caption width is 4in for longtable, but wider for normal tables
+\setlength{\LTcapwidth}{\textwidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Printed vs. online formatting
+\ifdefined\printmode
+
+% Printed copy
+% url package understands urls (with proper line-breaks) without hyperlinking them
+\usepackage{url}
+
+\else
+\ifdefined\proquestmode
+
+\usepackage{hyperref}
+\hypersetup{bookmarksnumbered}
+
+% copy the already-set title and author to use in the pdf properties
+\makeatletter
+\hypersetup{pdftitle=\@title,pdfauthor=\@author}
+\makeatother
+
+\else
+\usepackage{hyperref}
+\hypersetup{colorlinks,bookmarksnumbered}
+
+% copy the already-set title and author to use in the pdf properties
+\makeatletter
+\hypersetup{pdftitle=\@title,pdfauthor=\@author}
+\makeatother
+
+% make the page number rather than the text be the link for ToC entries
+%\hypersetup{linktocpage}
+\fi % proquest or online formatting
+\fi % printed or online formatting
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+%%%% Define commands
+% create an environment that will indent text
+% see: http://latex.computersci.org/Reference/ListEnvironments
+% 	\raggedright makes them left aligned instead of justified
+\newenvironment{indenttext}{
+    \begin{list}{}{ \itemsep 0in \itemindent 0in
+    \labelsep 0in \labelwidth 0in
+    \listparindent 0in
+    \topsep 0in \partopsep 0in \parskip 0in \parsep 0in
+    \leftmargin 1em \rightmargin 0in
+    \raggedright
+    }
+    \item
+  }
+  {\end{list}}
+
+% another environment that's an indented list, with no spaces between items -- if we want multiple items/lines. Useful in tables. Use \item inside the environment.
+% 	\raggedright makes them left aligned instead of justified
+\newenvironment{indentlist}{
+    \begin{list}{}{ \itemsep 0in \itemindent 0in
+    \labelsep 0in \labelwidth 0in
+    \listparindent 0in
+    \topsep 0in \partopsep 0in \parskip 0in \parsep 0in
+    \leftmargin 1em \rightmargin 0in
+    \raggedright
+    }
+
+  }
+  {\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+%%%% Front-matter
+
+% For early drafts, you may want to disable some of the frontmatter. Simply change this to "\ifodd 1" to do so.
+\ifodd 0
+% front-matter disabled while writing chapters
+\renewcommand{\maketitlepage}{}
+%\renewcommand*{\makecopyrightpage}{}
+%\renewcommand*{\makeabstract}{}
+
+% you can just skip the \acknowledgements and \dedication commands to leave out these sections.
+%\else
+%\abstract{
+%\input{abstract}
+%}
+
+%\acknowledgements{
+%\input{acknowledgements}
+%}
+
+%\dedication{Dein Lachen\\Your smile\\Senin g\"ul\"u\c{s}\"un\\Tw\'{o}j \'{s}miech}
+\fi  % disable frontmatter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+%%%% Hide some chapters
+
+%%% If you want to produce a pdf that includes only certain chapters, specify them with includeonly, in addition to including all chapters below.
+%\includeonly{ch-intro/chapter-intro}
+%%% You can also specify multiple chapters.
+%\includeonly{ch-intro/chapter-intro,ch-usage/chapter-usage}
+%\includeonly{chap1,chap2,chap3}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Notes:
+
+% Footnotes should be placed after punctuation.\footnote{place here.}
+% Generally, place citations before the period~\cite{anotherauthor}.
+% The proper usage for i.e., and e.g., include commas ``(e.g., option A, option B)''
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Import chapters
+\usepackage{amsmath}
+% \usepackage{unicode-math}
+% \setmathfont{Raleway-Light.otf}
+\usepackage{mathspec}
+\usepackage{fontspec}
+%\setmainfont{Raleway-Light.ttf}
+\setmainfont{OpenSans-Light.ttf}[
+  BoldFont = OpenSans-Regular.ttf ,
+  ItalicFont = OpenSans-LightItalic.ttf ]
+\setmathsfont(Digits,Latin,Greek)[Numbers={Lining,Proportional}]{OpenSans-LightItalic.ttf}
+%\setmathrm{OpenSans-LightItalic.ttf}
+
+\begin{document}
+
+\makefrontmatter
+% If you've disabled frontmatter, you can insert the toc manually
+%\tableofcontents\clearpage
+
+% \include lets us split up the document (and each include starts a new page):
+\include{ch-intro/chapter-related-works}
+\include{ch-conclusion/chapter-conclusion}
+\include{ch-conclusion/chapter-conclusion-and-futurework}
+\appendix % all chapters following will be labeled as appendices
+\include{ch-appendicies/Leer}
+
+
+% Make the bibliography single spaced
+\singlespacing
+\bibliographystyle{plain}
+
+% add the Bibliography to the Table of Contents
+\cleardoublepage
+\ifdefined\phantomsection
+  \phantomsection  % makes hyperref recognize this section properly for pdf link
+\else
+\fi
+\addcontentsline{toc}{chapter}{Bibliography}
+
+% include your .bib file
+\bibliography{thesis}
+
+\end{document}
